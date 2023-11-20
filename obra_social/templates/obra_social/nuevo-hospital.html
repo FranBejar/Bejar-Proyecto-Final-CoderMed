@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block titulo %}
+    <title>CoderMed - Nuevo Hospital</title>
+{% endblock titulo %}
+
+{% block contenido%}
+    <form method="post">
+        {% csrf_token %}
+        {{formulario.as_p}}
+        <input type="submit" value="Agregar Hospital">
+    </form>
+{% endblock contenido%}

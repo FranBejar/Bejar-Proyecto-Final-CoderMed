@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block titulo %}
+    <title>CoderMed - Cartilla</title>
+{% endblock titulo %}
+
+{% block contenido %}
+    <h1>Cartilla Medica</h1>
+    <a href="{% url 'especialista' %}">Ver Todos</a>
+    <br>
+    <form action="{% url 'especialista' %}" method="post">
+        {% csrf_token %}
+        <input type="text" name="busqueda" value="{{ busqueda_form }}">
+        <input type="submit" value="Buscar por Especialidad">
+    </form>
+    <br>
+    <ul>
+        {% for medico in medicos %}
+            <li>
+                <h3>{{ medico.nombre }} {{ medico.apellido }}</h3>
+                {{ medico.especialidad }}
+                MD: {{ medico.matricula }}
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock contenido %}

@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block titulo %}
+    <title>CoderMed - Hospitales</title>
+{% endblock titulo %}
+
+{% block contenido %}
+    <h1>Hospitales adheridos a la Obra Social</h1>
+    <ul>
+        {% for hospital in hospitales %}
+        <li>
+            <h2>{{hospital.nombre}}</h2>
+            <h3>{{hospital.direccion}}</h3>
+            {{hospital.telefono}}
+        </li>
+        {% endfor %}
+    </ul>
+{% endblock contenido %}

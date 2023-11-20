@@ -1,0 +1,74 @@
+nav {
+    background-color: lightcoral;
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 15% 85%;
+    grid-template-areas: "logo navbar";
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: greenyellow;
+    text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black;
+    font-size: 18pt;
+    font-weight: bolder;
+}
+
+.navbar {
+    display: flex;
+}
+
+.navbar a {
+    text-decoration: none;
+    background-color: blue;
+    color: white;
+    font-size: 15pt;
+    font-weight: bold;
+    display: block;
+    padding: 13px 30px;
+    border-radius: 5px;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.navbar a:hover {
+    background-color: greenyellow;
+    color: black;
+}
+
+.block {
+    margin-top: 50px;
+}
+
+.botonera-formularios {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 500px;
+}
+
+.botonera-formularios a {
+    margin-bottom: 10px;
+    text-align: center;
+    text-decoration: none;
+    background-color: blue;
+    color: white;
+    font-size: 15pt;
+    font-weight: bold;
+    display: block;
+    padding: 13px 30px;
+    border-radius: 5px;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.botonera-formularios a:hover {
+    background-color: greenyellow;
+    color: black;
+}

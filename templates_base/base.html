@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        {% block titulo %}{% endblock titulo %}
+        {% load static %}
+        <link href="{% static 'css/styles.css' %}" rel="stylesheet">
+    </head>
+    <body>
+        <nav>
+            <div class="logo">CoderMed</div>
+            <div class="navbar">
+                <a href="{%url 'index'%}">Inicio</a>
+                <a href="{%url 'planes'%}">Planes</a>
+                <a href="{%url 'cartilla'%}">Cartilla Medica</a>
+                <a href="{%url 'hospitales'%}">Hospitales Asociados</a>
+                <a href="{%url 'formularios'%}">Formularios CoderMed</a>
+            </div>
+        </nav>
+        <div class="block">
+            {% block contenido %}
+            {% endblock contenido %}
+        </div>
+    </body>
+
+</html>
