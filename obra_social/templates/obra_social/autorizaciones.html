@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block titulo %}
+    <title>CoderMed - Autorizaciones</title>
+{% endblock titulo %}
+
+{% block contenido %}
+    <h1>Autorizaciones</h1>
+    <table class="autorizaciones">
+        <tbody>
+            <tr>
+                <th>Hospital</th>
+                <th>Especialista</th>
+                <th>Intervencion</th>
+                <th>Fecha de Solicitud</th>
+                <th>Estado</th>
+                <th>Cambiar Datos</th>
+                <th>Cancelar Autorizacion</th>
+            </tr>
+            {% for autorizacion in autorizaciones %}
+            <tr>
+                <td>{{ autorizacion.hospital }}</td>
+                <td>{{ autorizacion.especialista }}</td>
+                <td>{{ autorizacion.intervencion }}</td>
+                <td>{{ autorizacion.fecha_solicitud }}</td>
+                {% if autorizacion.solicitud_aprobada %}
+                    <td>Aprobada</td>
+                    <td></td>
+                    <td></td>
+                {% else %}
+                    <td>Pendiente</td>
+                    <td><a href="{%url 'editar-autorizacion' autorizacion.id%}">Editar</a></td>
+                    <td><a href="{%url 'cancelar-autorizacion' autorizacion.id %}">Cancelar</a></td>
+                {% endif %}
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock contenido %}

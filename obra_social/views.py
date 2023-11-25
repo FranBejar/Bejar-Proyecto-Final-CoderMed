@@ -187,3 +187,65 @@ def form_completo(request):
         context=contexto
     )
     return http_response
+
+def lista_autorizaciones(request):
+    contexto = {
+        "autorizaciones": Autorizacion.objects.all()
+    }
+    http_response = render(
+        request=request,
+        template_name='obra_social/autorizaciones.html',
+        context=contexto
+    )
+    return http_response
+
+def preelimina_autorizacion(request,id):
+    contexto = {
+        "autorizacion": Autorizacion.objects.get(id=id)
+    }
+    http_response = render(
+        request=request,
+        template_name='obra_social/cancelar-autorizacion.html',
+        context=contexto
+    )
+    return http_response
+
+def eliminar_autorizacion(request,id):
+    autorizacion = Autorizacion.objects.get(id=id)
+    if request.method == "POST":
+        autorizacion.delete()
+        url_exitosa = reverse('lista-autorizaciones')
+        return redirect(url_exitosa)
+    
+def editar_autorizacion(request,id):
+    autorizacion = Autorizacion.objects.get(id=id)
+    if request.method == "POST":
+        formulario = NuevaAutorizacion(request.POST)
+
+        if formulario.is_valid():
+            data = formulario.cleaned_data
+            autorizacion.dni_afiliado=data['dni_afiliado']
+            autorizacion.plan = int(data['plan'])
+            autorizacion.hospital=data['hospital']
+            autorizacion.especialista=data['especialista']
+            autorizacion.intervencion=data['intervencion']
+            autorizacion.observaciones=data['observaciones']
+            autorizacion.save()
+            url_exitosa = reverse('form-completo')
+            return redirect(url_exitosa)
+    else:
+        inicial = {
+            'dni_afiliado': autorizacion.dni_afiliado,
+            'plan':str(autorizacion.plan),
+            'hospital': str(autorizacion.hospital),
+            'especialista': str(autorizacion.especialista),
+            'intervencion': autorizacion.intervencion,
+            'observaciones': autorizacion.observaciones
+        }
+        formulario = NuevaAutorizacion(initial=inicial)
+    http_response = render(
+        request=request,
+        template_name='obra_social/autorizar.html',
+        context={'formulario': formulario}
+    )
+    return http_response

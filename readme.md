@@ -31,8 +31,7 @@ python manage.py runserver
 + Esto lo redirigira a una pagina de administrador que solicitara Usuario y Contraseña
 + Al ser un proyecto de prueba sin datos sensibles se proporciona el usuario administrador de pruebas
 
-username: admin
-password: coder
+username: admin - password: codermed
 
 + En caso de no tener este usuario puede crear uno con el siguiente comando
 ```

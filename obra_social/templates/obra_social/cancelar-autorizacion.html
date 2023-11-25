@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block titulo %}
+    <title>CoderMed - Cancelar Autorizacion {{ autorizacion.id }}</title>
+{% endblock titulo %}
+
+{% block contenido%}
+    <h2>Esta seguro que quiere cancelar la siguiente autorizacion?</h2>
+    <h2>{{ autorizacion.intervencion }} - {{ autorizacion.especialista }}</h2>
+    <h3>Observaciones: {{ autorizacion.observaciones }}</h3>
+    <div class="opciones">
+        <!-- <a href="{%url 'lista-autorizaciones'%}">Formularios CoderMed</a> -->
+        <form action="{% url 'lista-autorizaciones' %}" method="get">
+            {% csrf_token %}
+            <input type="submit" value="Volver al Listado"/>
+        </form>
+        <form action="{% url 'eliminar-autorizacion' autorizacion.id %}" method="post">
+            {% csrf_token %}
+            <input type="submit" value="Cancelar Autorizacion"/>
+        </form>
+    </div>
+{% endblock contenido %}
