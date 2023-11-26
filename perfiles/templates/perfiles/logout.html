@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block titulo %}
+    <title>CoderMed - Sesion Finalizada</title>
+{% endblock titulo %}
+
+{% block contenido %}
+    <h2>La sesion ha cerrado con exito</h2>
+    <form action="{% url 'index' %}" method="get">
+        {% csrf_token %}
+        <input type="submit" value="Volver al Inicio"/>
+    </form>
+{% endblock contenido %}

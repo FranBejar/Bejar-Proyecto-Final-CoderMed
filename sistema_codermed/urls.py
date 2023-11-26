@@ -22,5 +22,6 @@ from sistema_codermed.views import html
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('os/',include("obra_social.urls")),
+    path('perfiles/',include("perfiles.urls")),
     path("",html,name="index")
 ]

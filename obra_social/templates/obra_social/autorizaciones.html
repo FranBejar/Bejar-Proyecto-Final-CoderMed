@@ -18,6 +18,7 @@
                 <th>Cancelar Autorizacion</th>
             </tr>
             {% for autorizacion in autorizaciones %}
+            {% if user == autorizacion.creador %}
             <tr>
                 <td>{{ autorizacion.hospital }}</td>
                 <td>{{ autorizacion.especialista }}</td>
@@ -33,6 +34,7 @@
                     <td><a href="{%url 'cancelar-autorizacion' autorizacion.id %}">Cancelar</a></td>
                 {% endif %}
             </tr>
+            {% endif %}
             {% endfor %}
         </tbody>
     </table>

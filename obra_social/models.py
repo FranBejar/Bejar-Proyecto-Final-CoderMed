@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 # Create your models here.
 class Hospital(models.Model):
@@ -32,6 +33,7 @@ class Especialista(models.Model):
         return f"{self.especialidad} - {self.apellido}"
 
 class Autorizacion(models.Model):
+    creador = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     dni_afiliado=models.CharField(max_length=10)
     plan=models.IntegerField()
     hospital=models.CharField(max_length=40)

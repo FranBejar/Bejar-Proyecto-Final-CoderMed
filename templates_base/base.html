@@ -16,7 +16,10 @@
                 <a href="{%url 'planes'%}">Planes</a>
                 <a href="{%url 'cartilla'%}">Cartilla Medica</a>
                 <a href="{%url 'hospitales'%}">Hospitales Asociados</a>
+                {% if user.is_authenticated %}
                 <a href="{%url 'formularios'%}">Formularios CoderMed</a>
+                {% endif%}
+                <a href="{%url 'usuarios'%}">Ingresar a Codermed</a>
             </div>
         </nav>
         <div class="block">

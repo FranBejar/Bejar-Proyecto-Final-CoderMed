@@ -6,9 +6,13 @@
 
 {% block contenido %}
     <div class="botonera-formularios">
-        <a href="{% url 'afiliate'%}">Afiliate a CoderMed</a>
-        <a href="{% url 'nuevo-especialista'%}">Ingresar nuevo Especialista (ADMIN)</a>
-        <a href="{% url 'nuevo-hospital'%}">Ingresar nuevo Hospital (ADMIN)</a>
-        <a href="{% url 'nueva-solicitud'%}">Solicitar Autorizacion (AFILIADOS)</a>
+        {% if user.is_staff %}
+        <a href="{% url 'nuevo-especialista'%}">Ingresar nuevo Especialista</a>
+        <a href="{% url 'nuevo-hospital'%}">Ingresar nuevo Hospital</a>
+        {% endif %}
+        {% if not user.is_staff%}
+        <a href="{% url 'nueva-solicitud'%}">Solicitar Autorizacion</a>
+        <a href="{% url 'lista-autorizaciones'%}">Lista de Autorizaciones</a>
+        {% endif %}
     </div>
 {% endblock contenido %}

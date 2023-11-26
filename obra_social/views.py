@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.urls import reverse
+from django.contrib.auth.decorators import login_required
 
 from obra_social.forms import AfiliacionFormulario,NuevoEspecialista,NuevoHospital,NuevaAutorizacion
 from obra_social.models import Afiliado,Especialista,Hospital,Autorizacion
@@ -56,6 +57,7 @@ def lista_hospitales(request):
     )
     return http_response
 
+@login_required
 def formularios(request):
     contexto={}
     http_response = render(
@@ -94,6 +96,7 @@ def nuevo_afiliado(request):
     )
     return http_response
 
+@login_required
 def nuevo_especialista(request):
     if request.method == "POST":
         formulario = NuevoEspecialista(request.POST)
@@ -119,6 +122,7 @@ def nuevo_especialista(request):
     )
     return http_response
 
+@login_required
 def nuevo_hospital(request):
     if request.method == "POST":
         formulario = NuevoHospital(request.POST)
@@ -143,6 +147,7 @@ def nuevo_hospital(request):
     )
     return http_response
 
+@login_required
 def nueva_solicitud(request):
     if request.method == "POST":
         formulario = NuevaAutorizacion(request.POST)
@@ -150,6 +155,7 @@ def nueva_solicitud(request):
         if formulario.is_valid():
             data = formulario.cleaned_data
             autorizacion = Autorizacion(
+                creador=request.user,
                 dni_afiliado=data['dni_afiliado'],
                 plan=data['plan'],
                 hospital=data['hospital'],
@@ -179,6 +185,7 @@ def bienvenido(request):
     )
     return http_response
 
+@login_required
 def form_completo(request):
     contexto={}
     http_response = render(
@@ -188,6 +195,7 @@ def form_completo(request):
     )
     return http_response
 
+@login_required
 def lista_autorizaciones(request):
     contexto = {
         "autorizaciones": Autorizacion.objects.all()
@@ -199,6 +207,7 @@ def lista_autorizaciones(request):
     )
     return http_response
 
+@login_required
 def preelimina_autorizacion(request,id):
     contexto = {
         "autorizacion": Autorizacion.objects.get(id=id)
@@ -210,6 +219,7 @@ def preelimina_autorizacion(request,id):
     )
     return http_response
 
+@login_required
 def eliminar_autorizacion(request,id):
     autorizacion = Autorizacion.objects.get(id=id)
     if request.method == "POST":
@@ -217,6 +227,7 @@ def eliminar_autorizacion(request,id):
         url_exitosa = reverse('lista-autorizaciones')
         return redirect(url_exitosa)
     
+@login_required
 def editar_autorizacion(request,id):
     autorizacion = Autorizacion.objects.get(id=id)
     if request.method == "POST":
