@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block titulo %}
+    <title>CoderMed - {{ articulo.titulo }}</title>
+{% endblock titulo %}
+
+{% block contenido %}
+    <h1>{{ articulo.titulo }}</h1>
+    <h2>{{ articulo.subtitulo }}</h2>
+    {{ articulo.autor }} - {{ articulo.fecha }}
+    <div class="cuerpo">
+        {{articulo.cuerpo}}
+    </div>
+    {% if user.is_staff %}
+        <a href="{% url 'editar-articulo' articulo.id%}">Editar</a>
+        <a href="{% url 'eliminar-articulo' articulo.id%}">Eliminar</a>
+    {% endif %}
+{% endblock contenido %}

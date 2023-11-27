@@ -38,3 +38,9 @@ username: admin - password: codermed
 python manage.py createsuperuser
 ```
 + Este comando le pedira ciertos datos a modo de credenciales para crear un usuario administrador
+
+## Informacion Adicional
+
++ Se adjunta link a Carpeta de Google Drive con Archivo Excel de casos de Prueba y Video mostrando el funcionamiento de la pagina
+
++ https://drive.google.com/drive/folders/1hYi8xd4eJ25YtDExj72IoZ5IsAHozFf-?usp=sharing

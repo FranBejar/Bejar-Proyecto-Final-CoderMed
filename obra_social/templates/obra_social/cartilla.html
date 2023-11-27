@@ -20,6 +20,10 @@
                 <h3>{{ medico.nombre }} {{ medico.apellido }}</h3>
                 {{ medico.especialidad }}
                 MD: {{ medico.matricula }}
+                {% if user.is_staff %}
+                <a href="{%url 'editar-especialista' medico.id%}">Editar</a>
+                <a href="{%url 'eliminar-especialista' medico.id%}">Borrar</a>
+                {% endif %}
             </li>
         {% endfor %}
     </ul>

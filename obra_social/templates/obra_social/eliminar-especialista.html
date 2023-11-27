@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block titulo %}
+    <title>CoderMed - Eliminar Especialista {{ especialista.id }}</title>
+{% endblock titulo %}
+
+{% block contenido%}
+    <h2>Esta seguro que quiere eliminar de la lista al siguiente doctor?</h2>
+    <h2>{{ especialista.nombre }} {{ especialista.apellido }}</h3>
+    <h3>{{ especialista.especialidad }}</h2>
+    <h3>MD: {{ especialista.matricula }}</h3>
+    <div class="opciones">
+        <form action="{% url 'cartilla' %}" method="get">
+            {% csrf_token %}
+            <input type="submit" value="Volver al Listado"/>
+        </form>
+        <form action="{% url 'borrar-especialista' especialista.id %}" method="post">
+            {% csrf_token %}
+            <input type="submit" value="Eliminar Especialista"/>
+        </form>
+    </div>
+{% endblock contenido %}

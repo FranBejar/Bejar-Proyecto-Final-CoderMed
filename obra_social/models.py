@@ -45,3 +45,13 @@ class Autorizacion(models.Model):
 
     def __str__(self):
         return f"{self.dni_afiliado} - {self.intervencion} - {self.fecha_solicitud}"
+    
+class Articulo(models.Model):
+    titulo = models.CharField(max_length=50)
+    subtitulo = models.CharField(max_length=100)
+    cuerpo = models.TextField(blank=False)
+    autor = models.CharField(max_length=50)
+    fecha = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.titulo}"

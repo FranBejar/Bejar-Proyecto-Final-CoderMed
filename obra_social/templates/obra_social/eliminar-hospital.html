@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block titulo %}
+    <title>CoderMed - Eliminar Hospital {{ hospital.id }}</title>
+{% endblock titulo %}
+
+{% block contenido%}
+    <h2>Esta seguro que quiere eliminar de la lista el siguiente hospital?</h2>
+    <h2>{{ hospital.nombre }}</h3>
+    <div class="opciones">
+        <form action="{% url 'hospitales' %}" method="get">
+            {% csrf_token %}
+            <input type="submit" value="Volver al Listado"/>
+        </form>
+        <form action="{% url 'borrar-hospital' hospital.id %}" method="post">
+            {% csrf_token %}
+            <input type="submit" value="Eliminar Hospital"/>
+        </form>
+    </div>
+{% endblock contenido %}

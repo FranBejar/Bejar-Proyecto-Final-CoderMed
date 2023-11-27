@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block titulo %}
+    <title>CoderMed - Eliminar Articulo {{ articulo.id }}</title>
+{% endblock titulo %}
+
+{% block contenido%}
+    <h2>Esta seguro que quiere eliminar el siguiente articulo?</h2>
+    <h2>{{ articulo.titulo }}</h3>
+    <div class="opciones">
+        <form action="{% url 'pages' %}" method="get">
+            {% csrf_token %}
+            <input type="submit" value="Volver al Listado"/>
+        </form>
+        <form action="{% url 'borrar-articulo' articulo.id %}" method="post">
+            {% csrf_token %}
+            <input type="submit" value="Eliminar Articulo"/>
+        </form>
+    </div>
+{% endblock contenido %}

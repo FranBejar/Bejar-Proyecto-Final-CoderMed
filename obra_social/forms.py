@@ -36,3 +36,9 @@ class NuevaAutorizacion(forms.Form):
     especialista = forms.ChoiceField(choices=especialista_choices, widget=forms.Select())
     intervencion = forms.CharField(required=True, max_length=100)
     observaciones = forms.CharField(required=False)
+
+class NuevoArticulo(forms.Form):
+    titulo = forms.CharField(required=True, max_length=50)
+    subtitulo = forms.CharField(required=True, max_length=100)
+    cuerpo = forms.CharField(required=True, widget=forms.Textarea(attrs={'cols': 80, 'rows': 5}))
+    autor = forms.CharField(required=True, initial="Equipo CoderMed")

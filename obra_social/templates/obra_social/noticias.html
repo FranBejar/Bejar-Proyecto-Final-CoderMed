@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block titulo %}
+    <title>CoderMed - Noticias</title>
+{% endblock titulo %}
+
+{% block contenido %}
+    <h1>Noticias de CoderMed</h1>
+
+    {% if articulos %}
+        <ul>
+            {% for articulo in articulos %}
+                <li>
+                    <h2>{{ articulo.titulo }}</h2>
+                    <h3>{{ articulo.subtitulo }}</h3>
+                    <a href="{% url 'ver-articulo' articulo.id %}">Leer Más</a>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>{{ mensaje }}</p>
+    {% endif %}
+{% endblock contenido %}

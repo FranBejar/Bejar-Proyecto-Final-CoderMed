@@ -2,8 +2,8 @@ from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 
-from obra_social.forms import AfiliacionFormulario,NuevoEspecialista,NuevoHospital,NuevaAutorizacion
-from obra_social.models import Afiliado,Especialista,Hospital,Autorizacion
+from obra_social.forms import AfiliacionFormulario,NuevoEspecialista,NuevoHospital,NuevaAutorizacion,NuevoArticulo
+from obra_social.models import Afiliado,Especialista,Hospital,Autorizacion,Articulo
 
 # Create your views here.
 
@@ -123,6 +123,56 @@ def nuevo_especialista(request):
     return http_response
 
 @login_required
+def editar_especialista(request,id):
+    especialista = Especialista.objects.get(id=id)
+    if request.method == "POST":
+        formulario = NuevoEspecialista(request.POST)
+
+        if formulario.is_valid():
+            data = formulario.cleaned_data
+            especialista.nombre=data['nombre']
+            especialista.apellido=data['apellido']
+            especialista.especialidad=data['especialidad']
+            especialista.matricula=data['matricula']
+            especialista.save()
+            url_exitosa = reverse('form-completo')
+            return redirect(url_exitosa)
+    else:
+        inicial = {
+            'nombre': especialista.nombre,
+            'apellido': especialista.apellido,
+            'especialidad': especialista.especialidad,
+            'matricula': especialista.matricula
+        }
+        formulario = NuevoEspecialista(initial=inicial)
+    http_response = render(
+        request=request,
+        template_name='obra_social/nuevo-especialista.html',
+        context={'formulario': formulario}
+    )
+    return http_response
+
+@login_required
+def preelimina_especialista(request,id):
+    contexto = {
+        "especialista": Especialista.objects.get(id=id)
+    }
+    http_response = render(
+        request=request,
+        template_name='obra_social/eliminar-especialista.html',
+        context=contexto
+    )
+    return http_response
+
+@login_required
+def eliminar_especialista(request,id):
+    especialista = Especialista.objects.get(id=id)
+    if request.method == "POST":
+        especialista.delete()
+        url_exitosa = reverse('cartilla')
+        return redirect(url_exitosa)
+
+@login_required
 def nuevo_hospital(request):
     if request.method == "POST":
         formulario = NuevoHospital(request.POST)
@@ -146,6 +196,55 @@ def nuevo_hospital(request):
         context={'formulario': formulario}
     )
     return http_response
+
+@login_required
+def editar_hospital(request,id):
+    hospital = Hospital.objects.get(id=id)
+    if request.method == "POST":
+        formulario = NuevoHospital(request.POST)
+
+        if formulario.is_valid():
+            data = formulario.cleaned_data
+            hospital.nombre = data['nombre']
+            hospital.direccion = data['direccion']
+            hospital.telefono = data['telefono']
+            hospital.save()
+            url_exitosa = reverse('form-completo')
+            return redirect(url_exitosa)
+    else:
+        inicial = {
+            'nombre': hospital.nombre,
+            'direccion': hospital.direccion,
+            'telefono': hospital.telefono
+        }
+        formulario = NuevoHospital(initial=inicial)
+
+    http_response = render(
+        request=request,
+        template_name='obra_social/nuevo-hospital.html',
+        context={'formulario': formulario}
+    )
+    return http_response
+
+@login_required
+def preelimina_hospital(request,id):
+    contexto = {
+        "hospital": Hospital.objects.get(id=id)
+    }
+    http_response = render(
+        request=request,
+        template_name='obra_social/eliminar-hospital.html',
+        context=contexto
+    )
+    return http_response
+
+@login_required
+def eliminar_hospital(request,id):
+    hospital = Hospital.objects.get(id=id)
+    if request.method == "POST":
+        hospital.delete()
+        url_exitosa = reverse('hospitales')
+        return redirect(url_exitosa)
 
 @login_required
 def nueva_solicitud(request):
@@ -181,6 +280,15 @@ def bienvenido(request):
     http_response = render(
         request=request,
         template_name='obra_social/bienvenido.html',
+        context=contexto
+    )
+    return http_response
+
+def about(request):
+    contexto={}
+    http_response = render(
+        request=request,
+        template_name='obra_social/about-us.html',
         context=contexto
     )
     return http_response
@@ -260,3 +368,104 @@ def editar_autorizacion(request,id):
         context={'formulario': formulario}
     )
     return http_response
+
+def pages(request):
+    articulos = Articulo.objects.all()
+    if len(articulos) > 0:
+        contexto = {"articulos": articulos}
+    else:
+        contexto = {"mensaje": "Aún no se compartieron noticias."}
+
+    http_response = render(
+        request=request,
+        template_name='obra_social/noticias.html',
+        context=contexto
+    )
+    return http_response
+
+@login_required
+def nuevo_articulo(request):
+    if request.method == "POST":
+        formulario = NuevoArticulo(request.POST)
+
+        if formulario.is_valid():
+            data = formulario.cleaned_data
+            articulo = Articulo(
+                titulo = data['titulo'],
+                subtitulo = data['subtitulo'],
+                cuerpo = data['cuerpo'],
+                autor = data['autor']
+            )
+            articulo.save()
+            url_exitosa = reverse('pages')
+            return redirect(url_exitosa)
+    else:
+        formulario = NuevoArticulo()
+
+    http_response = render(
+        request=request,
+        template_name='obra_social/nueva-noticia.html',
+        context={'formulario': formulario}
+    )
+    return http_response
+
+def ver_articulo(request,id):
+    contexto = {
+        "articulo": Articulo.objects.get(id=id)
+    }
+    http_response = render(
+        request=request,
+        template_name='obra_social/articulo.html',
+        context=contexto
+    )
+    return http_response
+
+@login_required
+def editar_articulo(request,id):
+    articulo = Articulo.objects.get(id=id)
+    if request.method == "POST":
+        formulario = NuevoArticulo(request.POST)
+
+        if formulario.is_valid():
+            data = formulario.cleaned_data
+            articulo.titulo = data['titulo']
+            articulo.subtitulo = data['subtitulo']
+            articulo.cuerpo = data['cuerpo']
+            articulo.autor = data['autor']
+            articulo.save()
+            url_exitosa = reverse('pages')
+            return redirect(url_exitosa)
+    else:
+        inicial = {
+            'titulo': articulo.titulo,
+            'subtitulo': articulo.subtitulo,
+            'cuerpo': articulo.cuerpo,
+            'autor': articulo.autor
+        }
+        formulario = NuevoArticulo(initial=inicial)
+    http_response = render(
+        request=request,
+        template_name='obra_social/nueva-noticia.html',
+        context={'formulario': formulario}
+    )
+    return http_response
+
+@login_required
+def preelimina_articulo(request,id):
+    contexto = {
+        "articulo": Articulo.objects.get(id=id)
+    }
+    http_response = render(
+        request=request,
+        template_name='obra_social/eliminar-articulo.html',
+        context=contexto
+    )
+    return http_response
+
+@login_required
+def eliminar_articulo(request,id):
+    articulo = Articulo.objects.get(id=id)
+    if request.method == "POST":
+        articulo.delete()
+        url_exitosa = reverse('pages')
+        return redirect(url_exitosa)

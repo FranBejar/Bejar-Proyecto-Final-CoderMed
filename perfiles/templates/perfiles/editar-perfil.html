@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block titulo %}
+    <title>CoderMed - Editar Usuario</title>
+{% endblock titulo %}
+
+{% block contenido %}
+<h2>Editar datos de Usuario</h2>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Guardar Cambios"/>
+</form>
+<h3>En caso de requerir editar el DNI registrado comunicarse a soporte@codermed.com con Asunto "Cambio DNI" y los datos del afiliado</h3>
+{% endblock contenido %}

@@ -9,6 +9,7 @@
         {% if user.is_staff %}
         <a href="{% url 'nuevo-especialista'%}">Ingresar nuevo Especialista</a>
         <a href="{% url 'nuevo-hospital'%}">Ingresar nuevo Hospital</a>
+        <a href="{% url 'nuevo-articulo'%}">Publicar Nueva Noticia</a>
         {% endif %}
         {% if not user.is_staff%}
         <a href="{% url 'nueva-solicitud'%}">Solicitar Autorizacion</a>

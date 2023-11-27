@@ -5,9 +5,10 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.views import LogoutView
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views.generic import UpdateView
 
 # Create your views here.
-from perfiles.forms import UserRegisterForm, CustomAuthenticationForm
+from perfiles.forms import UserRegisterForm, CustomAuthenticationForm, UserUpdateForm
 
 def registro(request):
     if request.method == "POST":
@@ -62,3 +63,11 @@ def usuarios(request):
         context=contexto
     )
     return http_response
+
+class MiPerfilUpdateView(LoginRequiredMixin, UpdateView):
+    form_class = UserUpdateForm
+    success_url = reverse_lazy('index')
+    template_name = 'perfiles/editar-perfil.html'
+
+    def get_object(self, queryset=None):
+        return self.request.user

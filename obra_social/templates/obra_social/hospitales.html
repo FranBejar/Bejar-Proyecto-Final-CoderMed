@@ -12,6 +12,10 @@
             <h2>{{hospital.nombre}}</h2>
             <h3>{{hospital.direccion}}</h3>
             {{hospital.telefono}}
+            {% if user.is_staff %}
+                <a href="{%url 'editar-hospital' hospital.id%}">Editar</a>
+                <a href="{%url 'eliminar-hospital' hospital.id%}">Borrar</a>
+            {% endif %}
         </li>
         {% endfor %}
     </ul>
